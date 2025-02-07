@@ -1,21 +1,23 @@
 def factors(n):
-    """Prints all factors of a given number n."""
+    """Returns all factors of a given number n."""
     if n <= 0:
-        print("Please enter a positive integer.")
-        return
-    
-    for i in range(1, int(n ** 0.5) + 1):  # Only iterate up to sqrt(n) for efficiency
+        raise ValueError("Please enter a positive integer.")
+
+    result = []
+    for i in range(1, int(n ** 0.5) + 1):
         if n % i == 0:
-            print(f"{i} is a factor of {n}")
+            result.append(i)
             if i != n // i:  # Avoid duplicate factors when n is a perfect square
-                print(f"{n // i} is a factor of {n}")
+                result.append(n // i)
+    return sorted(result)
 
 def main():
     try:
         num = int(input("Enter a positive integer: "))
-        factors(num)
-    except ValueError:
-        print("Invalid input! Please enter a valid positive integer.")
+        factors_list = factors(num)
+        print(f"Factors of {num}: {', '.join(map(str, factors_list))}")
+    except ValueError as e:
+        print(e)
 
 # Test cases for factors function
 
